@@ -1,0 +1,6 @@
+flask
+cohere
+pinecone-client
+MoviePy
+assemblyai
+pyPDF2

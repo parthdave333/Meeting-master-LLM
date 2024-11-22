@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #ecf0f1;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        li label {
+            font-size: 1rem;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="DhiWise Logo">
+        </div>
+
+        <h1>Meeting Manager</h1>
+
+        <div class="form-section">
+            <h2>Upload Pre-Meeting Document</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <label for="fileUpload">Select a document to upload:</label>
+                <input type="file" id="fileUpload" name="file" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h2>Add Discussion Points</h2>
+            <form action="/add_point" method="POST">
+                <input type="text" name="discussion_point" placeholder="Add a discussion point" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h2>Agenda</h2>
+            <form action="/mark_discussed" method="POST">
+                <ul>
+                    {%- if discussion_points -%}
+                        {%- for point in discussion_points -%}
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="discussion_point" value="{{ point }}"> {{ point }}
+                                </label>
+                            </li>
+                        {%- endfor -%}
+                    {%- else -%}
+                        <li>No discussion points available.</li>
+                    {%- endif -%}
+                </ul>
+                <button type="submit">Mark as Discussed</button>
+            </form>
+        </div>
+
+        <!-- Generate Summary Button and Summary Result -->
+        <div class="form-section">
+            <h2>Generate Summary</h2>
+            <button id="generate-summary-btn">Generate Summary</button>
+            <div id="loading-message" style="display: none;">Generating summary, please wait...</div>
+            <div id="summary-result"></div>
+        </div>
+
+        <div class="footer">
+            Made with ♥ by Parth dave
+        </div>
+    </div>
+
+    <!-- Add JavaScript to handle the AJAX request -->
+    <script>
+        document.getElementById('generate-summary-btn').addEventListener('click', function() {
+            document.getElementById('loading-message').style.display = 'block';  // Show loading message
+
+            fetch('/generate_summary', {
+                method: 'GET'
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('loading-message').style.display = 'none';  // Hide loading message
+                document.getElementById('summary-result').innerHTML = data; // Display the summary on the same page
+            })
+            .catch(error => {
+                document.getElementById('loading-message').style.display = 'none';  // Hide loading message
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
