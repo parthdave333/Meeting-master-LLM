@@ -28,8 +28,8 @@ Handles meeting recordings, generates summaries, and organizes key decisions and
 ├── Post_meet/
 │   ├── post_app.py           
 │   ├── templates/            
-│   └── uploads/          
-|
+│   └── uploads/                 
+│
 └── README.md                 
 
 Setup Instructions:
