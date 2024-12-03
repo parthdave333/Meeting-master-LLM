@@ -14,8 +14,8 @@ Handles meeting recordings, generates summaries, and organizes key decisions and
 ## Project Structure:
 
 
-├── Pre_meet/
-│   ├── app.py
+├── Pre_meet/                
+│   ├── app.py                 
 │   ├── db.py                 
 │   ├── meetings.db           
 │   ├── requirements.txt      
