@@ -15,22 +15,22 @@ Handles meeting recordings, generates summaries, and organizes key decisions and
 
 
 ├── Pre_meet/
-│   ├── app.py                # Main application file for pre-meeting tool
-│   ├── db.py                 # Database management (SQLite)
-│   ├── meetings.db           # Database file
-│   ├── requirements.txt      # List of dependencies
-│   ├── static/               # Static files (CSS, JavaScript)
-│   ├── templates/            # HTML templates
-│   ├── uploads/              # Folder for uploaded files
-│   ├── venv/                 # Virtual environment (if created locally)
-│   └── test.py               # Test script for the pre-meeting tool
+│   ├── app.py
+│   ├── db.py                 
+│   ├── meetings.db           
+│   ├── requirements.txt      
+│   ├── static/               
+│   ├── templates/            
+│   ├── uploads/              
+│   ├── venv/                 
+│   └── test.py               
 │
 ├── Post_meet/
-│   ├── post_app.py           # Main application file for post-meeting tool
-│   ├── templates/            # HTML templates for the post-meeting tool
-│   └── uploads/              # Folder for video uploads
-│
-└── README.md                 # Project documentation
+│   ├── post_app.py           
+│   ├── templates/            
+│   └── uploads/          
+|
+└── README.md                 
 
 Setup Instructions:
 
